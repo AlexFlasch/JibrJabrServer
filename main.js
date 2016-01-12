@@ -22,7 +22,7 @@ io.on('connection', function(socket) {
     //// email: String
     //// password: String
     //// sessionID: String
-    socket.on('login', function(data) {
+    socket.on('user:login', function(data) {
         var userRef = new Firebase(firebaseUrl);
 
         userRef.authWithPassword({
@@ -38,7 +38,7 @@ io.on('connection', function(socket) {
                 }
             }
             else {
-                console.log('User logged in with payload: ' + authData);
+                console.log('User logged in with payload: ' + util.inspect(authData));
                 if(io.sockets.connected[data.sessionID]) {
                     io.sockets.connected[data.sessionID].emit('user:loggedin', {
                         success: true,
@@ -53,7 +53,7 @@ io.on('connection', function(socket) {
     //// email: String
     //// password: String
     //// sessionID: String
-    socket.on('register', function(data) {
+    socket.on('user:register', function(data) {
         console.log(data);
 
         if(data.email === undefined ||
@@ -86,7 +86,7 @@ io.on('connection', function(socket) {
     //// email: String
     //// password: String
     //// displayName: String
-    socket.on('changeDisplayName', function(data) {
+    socket.on('user:changeDisplayName', function(data) {
 
     });
 
@@ -94,8 +94,29 @@ io.on('connection', function(socket) {
     //// msg: Object
     ////// content: String
     //// sessionID: String
-    socket.on('message', function(data) {
-        console.log(data);
+    socket.on('msg:sent', function(data) {
+
+    });
+
+    // data contains:
+    //// roomName: String
+    //// sessionID: String
+    socket.on('room:created', function(data) {
+
+    });
+
+    // data contains:
+    //// roomName: String
+    //// sessionID: String
+    socket.on('room:joined', function(data) {
+
+    });
+
+    // data contains:
+    //// roomName: String
+    //// sessionID: String
+    socket.on('room:left', function(data) {
+
     });
 
     // data contains:
