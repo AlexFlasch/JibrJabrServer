@@ -75,6 +75,7 @@ io.on('connection', function(socket) {
             var success = user !== undefined;
 
             if(io.sockets.connected[data.sessionID]) {
+                console.log('emitting registered to ' + data.sessionID);
                 io.sockets.connected[data.sessionID].emit('user:registered', {
                     success: success
                 });
